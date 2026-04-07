@@ -34,6 +34,8 @@ CrimsonTrace runs a four-stage pipeline:
 
 An optional **Tune** mode sweeps HDBSCAN hyperparameters and scores each combination with DBCV, printing the top-5 configurations so you can update `config.json` accordingly.
 
+CrimsonTrace will automatically detect if your system has RAPIDS cuML installed and will use the GPU if available. If you don't have a GPU, HDBSCAN will run with your CPU.
+
 ## Requirements
 
 **Python 3.10+**
@@ -50,6 +52,10 @@ Optional (GPU acceleration):
 
 - RAPIDS cuML — enables GPU-accelerated Isolation Forest and HDBSCAN
 - cuDF
+
+### A Note on GPU acceleration
+
+If you have GPU, I highly recommend installing RAPIDS cuML to allow for GPU acceleration. GPU is optimized for this type of computation which means this tool will run much more effectively on a GPU versus CPU. If you do not use GPU acceleration, very large datasets (10 million or more entries) will likely cause stability issues when performing the HDBSCAN. Feel free to read more about why [here](https://developer.nvidia.com/blog/gpu-accelerated-hierarchical-dbscan-with-rapids-cuml-lets-get-back-to-the-future/#:~:text=GPU%2DAccelerated%20Hierarchical%20DBSCAN%20with%20RAPIDS%20cuML%20%E2%80%93,compared%20to%20over%2024%20hours%20on%20CPU.)
 
 To install cuML see this guide here:
 https://docs.rapids.ai/install/
