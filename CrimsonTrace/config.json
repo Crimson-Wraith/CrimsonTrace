@@ -1,0 +1,34 @@
+{
+	"ingest": {
+		"win_Security_fieldnames": {
+			"_timestamp":"timestamp",
+			"Event.System.Computer":"computername",
+			"Event.EventData.NewProcessName":"process",
+			"Event.EventData.CommandLine":"commandline",
+			"Event.EventData.ParentProcessName":"parentproc",
+			"Event.EventData.SubjectUserName":"username"
+		},
+		"win_Sysmon_fieldnames": {
+			"_timestamp":"timestamp",
+			"Event.System.Computer":"computername",
+			"Event.EventData.Image":"process",
+			"Event.EventData.CommandLine":"commandline",
+			"Event.EventData.ParentImage":"parentproc",
+			"Event.EventData.User":"username"
+		},
+		"csv_fieldnames": {
+			"timestamp":"timestamp",
+			"hostname":"computername",
+			"process":"process",
+			"cmdline":"commandline",
+			"pprocess":"parentproc",
+			"user":"username"
+		}
+	},
+	"analysis":{
+		"min_cluster_size": 5,
+		"min_samples": 5,
+		"metric": "euclidean",
+		"cluster_selection_method": "eom"
+	}
+}
