@@ -151,4 +151,4 @@ CrimsonTrace/
 
 ## License
 
-Not yet specified.
+GNU General Public License v3.0
