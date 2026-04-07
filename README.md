@@ -148,6 +148,9 @@ CrimsonTrace/
 │   └── UI/UI.py              # Banner, console output, CSV report export
 └── output/                   # Generated cluster reports
 ```
+## Disclaimer
+
+I am not a professional developer, just a threat hunter with an interest in Machine Learning applications to Cybersecurity. This project was partially coded using AI, so bugs are likely present.
 
 ## License
 
