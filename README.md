@@ -1,6 +1,6 @@
 # CrimsonTrace
 
-CrimsonTrace is a command-line threat hunting tool that applies unsupervised machine learning to Windows process creation logs. It uses an **Isolation Forest** to flag anomalous process executions, then clusters those anomalies with **HDBSCAN** so analysts can quickly triage related suspicious activity together rather than sifting through raw events one by one.
+CrimsonTrace is a command-line threat hunting tool that applies unsupervised machine learning to Windows process creation logs. It uses an [**Isolation Forest**](https://www.datacamp.com/tutorial/isolation-forest) to flag anomalous process executions, then clusters those anomalies with [**HDBSCAN**](https://arize.com/blog-course/understanding-hdbscan-a-deep-dive-into-hierarchical-density-based-clustering/) so analysts can quickly triage related suspicious activity together rather than sifting through raw events one by one.
 
 ## Why CrimsonTrace?
  
