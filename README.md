@@ -2,6 +2,21 @@
 
 CrimsonTrace is a command-line threat hunting tool that applies unsupervised machine learning to Windows process creation logs. It uses an **Isolation Forest** to flag anomalous process executions, then clusters those anomalies with **HDBSCAN** so analysts can quickly triage related suspicious activity together rather than sifting through raw events one by one.
 
+## Why CrimsonTrace?
+ 
+Enterprise EDR solutions are the gold standard for detecting malicious activity on endpoints, but they come with significant licensing costs that put them out of reach for many individuals, small teams, and organizations. CrimsonTrace exists to fill that gap — it's a free, offline tool that anyone can point at a set of Windows process creation logs to surface suspicious activity.
+ 
+Unlike signature-based detection, CrimsonTrace doesn't rely on known-bad indicators or threat intelligence feeds. It is purely mathematical: it identifies process executions that are statistically anomalous relative to the rest of the dataset, then groups similar anomalies into clusters. This means it can flag novel or previously unseen techniques that signature-based tools would miss entirely.
+ 
+It's especially useful when you're staring down tens or hundreds of thousands of log entries and need a starting point. Rather than reading every line, you can let CrimsonTrace narrow the dataset down to the events that are most worth investigating — the ones that don't look like everything else.
+ 
+**Typical use cases:**
+ 
+- Threat hunting on networks without EDR coverage
+- Triaging large forensic exports (EVTX or CSV) during incident response
+- Supplementing signature-based tools with a behavioral, math-driven second opinion
+- Training and education — learning what "normal" vs. "anomalous" process activity looks like in real log data
+
 ## How It Works
 
 CrimsonTrace runs a four-stage pipeline:
@@ -36,16 +51,23 @@ Optional (GPU acceleration):
 - RAPIDS cuML — enables GPU-accelerated Isolation Forest and HDBSCAN
 - cuDF
 
+To install cuML see this guide here:
+https://docs.rapids.ai/install/
+
 Install the core dependencies with:
 
 ```bash
 pip install pandas numpy scikit-learn hdbscan evtx
 ```
+Or install from requirements.txt
+```bash
+pip install -r ./requirements.txt
+```
 
 ## Usage
 
 ```bash
-python -m CrimsonTrace --format <evtx|csv> --type <Security|Sysmon> --path /absolute/path/to/logfile
+python3 CrimsonTrace.py --format <evtx|csv> --type <Security|Sysmon> --path /absolute/path/to/logfile
 ```
 
 **Arguments:**
@@ -61,13 +83,13 @@ python -m CrimsonTrace --format <evtx|csv> --type <Security|Sysmon> --path /abso
 
 ```bash
 # Analyze a Sysmon EVTX file
-python -m CrimsonTrace --format evtx --type Sysmon --path /data/sysmon.evtx
+python3 CrimsonTrace.py --format evtx --type Sysmon --path /data/sysmon.evtx
 
 # Analyze a CSV export of Windows Security logs
-python -m CrimsonTrace --format csv --type Security --path /data/proccreation.csv
+python3 CrimsonTrace.py --format csv --type Security --path /data/proccreation.csv
 
 # Run the hyperparameter tuner
-python -m CrimsonTrace --format evtx --type Sysmon --path /data/sysmon.evtx --tune
+python3 CrimsonTrace.py --format evtx --type Sysmon --path /data/sysmon.evtx --tune
 ```
 
 ## Configuration
